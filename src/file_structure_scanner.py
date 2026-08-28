@@ -28,7 +28,7 @@ class FileStructureScanner:
 
         return files
 
-    def group_files_by_extension(self) -> dict:
+    def group_files_by_extension(self) -> dict[str, list[Path]]:
         grouped_files = {}
         for file in self.files:
             extension = file.suffix

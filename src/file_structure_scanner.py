@@ -27,3 +27,13 @@ class FileStructureScanner:
                 files.extend(self.scan_directory(path / item.name))
 
         return files
+
+    def group_files_by_extension(self) -> dict:
+        grouped_files = {}
+        for file in self.files:
+            extension = file.suffix
+            if extension not in grouped_files:
+                grouped_files[extension] = []
+            grouped_files[extension].append(file)
+
+        return grouped_files

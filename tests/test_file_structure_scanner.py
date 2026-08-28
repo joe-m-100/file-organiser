@@ -50,3 +50,15 @@ def test_files_retrieved(workspace):
         assert target_files.get(file.name), f"Missing file: {file.name}"
         target_files[file.name] = False
 
+def test_group_files_by_extension(workspace):
+    # Arrange
+    base_dir, sub_dir, expected_files = workspace
+    scanner = FileStructureScanner(base_dir)
+    scanner.get_files()
+
+    # Act
+    grouped_files = scanner.group_files_by_extension()
+
+    # Assert
+    assert len(grouped_files['.txt']) == 4, f"Files grouped in correctly. {len(grouped_files['.txt'])} / 4"
+    assert len(grouped_files['.csv']) == 1, f"Files grouped in correctly. {len(grouped_files['.csv'])} / 1"

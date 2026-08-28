@@ -26,6 +26,4 @@ class FileStructureScanner:
             elif item.is_dir() and not self.ignore.get(item.name):
                 files.extend(self.scan_directory(path / item.name))
 
-        filenames = [file for file in files]
-
-        return filenames
+        return files

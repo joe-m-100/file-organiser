@@ -70,4 +70,4 @@ class FileStructureIllustrator:
 
 
     def display(self) -> None:
-        print(self.__illustration)
+        print('\n'.join(self.__illustration))

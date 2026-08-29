@@ -1,6 +1,7 @@
 import pytest
 from src.file_structure_illustrator import FileStructureIllustrator
 
+
 @pytest.mark.parametrize('input, expected', [
     ([], 'example.txt'),
     ([False], '├── example.txt'),
@@ -78,15 +79,15 @@ def test_format_illustration_line(input, expected):
     (
         {'documents': [{'images': ['image1.png']}, 'file1.txt', 'file2.txt', {'music': [{'archived': ['song1.mp3']}]}, 'file3.txt']},
         [
-            'Documents/', # []
-            '├── Images/', # False
-            '│   └── image1.png', # False True
-            '├── file1.txt', # False
-            '├── file2.txt', # False
-            '├── Music/', # False
-            '│   └── Archived/', # False True
-            '│       └── song1.mp3', # False True True
-            '└── file3.txt', # True
+            'Documents/',
+            '├── Images/',
+            '│   └── image1.png',
+            '├── file1.txt',
+            '├── file2.txt',
+            '├── Music/',
+            '│   └── Archived/',
+            '│       └── song1.mp3',
+            '└── file3.txt',
         ]
     ),
 ])

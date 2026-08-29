@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 class FileStructureScanner:
     def __init__(self, filepath = '.'):
         self.files = []
@@ -28,7 +29,7 @@ class FileStructureScanner:
 
         return files
 
-    def group_files_by_extension(self) -> dict[str, list[Path]]:
+    def group_files_by_extension(self) -> dict[str, list[Path|str|dict]]:
         grouped_files = {}
         for file in self.files:
             extension = file.suffix

@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 class FileStructureIllustrator:
     def __init__(self, structure: dict[str, list[Path|str|dict]]) -> None:
         self.__structure = structure
@@ -13,6 +14,7 @@ class FileStructureIllustrator:
 
     def generate_illustration(self):
         self.__illustration = self.illustrate_directory(self.__structure, [])
+        print(self.__illustration)
 
     def illustrate_directory(self, directory: dict[str, list[Path|str|dict]], is_last_child_stack: list[bool]) -> list[str]:
         output = []
@@ -36,7 +38,7 @@ class FileStructureIllustrator:
                     continue
 
                 item_name = ''
-                if type(item) == Path:
+                if isinstance(item, Path):
                     item_name = item.name
                 elif type(item) == str:
                     item_name = item

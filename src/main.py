@@ -1,5 +1,5 @@
-from file_structure_scanner import FileStructureScanner
-from file_structure_illustrator import FileStructureIllustrator
+from .file_structure_scanner import FileStructureScanner
+from .file_structure_illustrator import FileStructureIllustrator
 
 
 if __name__ == '__main__':
@@ -11,4 +11,3 @@ if __name__ == '__main__':
     illustrator.generate_illustration()
     print('\n')
     illustrator.display()
-    

@@ -23,7 +23,6 @@ def workspace(tmp_path_factory):
 
     return base_dir, sub_dir, expected_files
 
-# ----- TESTS -----
 def test_environment_setup_exists(workspace):
     # Verify the test directory and files are correctly present.
     base_dir, sub_dir, expected_files = workspace

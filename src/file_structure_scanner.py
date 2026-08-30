@@ -12,13 +12,13 @@ class FileStructureScanner:
             '__pycache__': True,
         }
 
-    def get_files(self):
+    def get_files(self) -> list[Path]:
         total_files = self.scan_directory(self.path)
         self.files.extend(total_files)
 
         return self.files
 
-    def scan_directory(self, path: Path) -> list:
+    def scan_directory(self, path: Path) -> list[Path]:
         files = []
         for item in path.iterdir():
             if item.is_file():

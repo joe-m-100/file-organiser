@@ -11,3 +11,4 @@ if __name__ == '__main__':
     illustrator.generate_illustration()
     print('\n')
     illustrator.display()
+    

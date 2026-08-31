@@ -6,10 +6,6 @@ File Organiser scans a selected folder, analyses its contents, identifies potent
 
 The goal is to make file organisation **automatic without being dangerous**.
 
-## Existing Features
-
-* WIP
-
 ## Example Usage
 
 Given a messy `Downloads` folder:
@@ -56,6 +52,7 @@ Particular areas of interest include:
 
 * Filesystem programming
 * Classification and rule-based systems
+* Potential for ML algorithm integration to better sort files
 * Software testing (TDD)
 * Error handling and recovery
 * Performance considerations when processing large numbers of files

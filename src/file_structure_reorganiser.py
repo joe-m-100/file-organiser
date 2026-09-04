@@ -8,9 +8,12 @@ class FileStructureReorganiser:
         else:
             self.__base_dir = base_dir
 
-    def reorganise(self, target: dict[str, list[Path|str|dict]]) -> None:
+    def reorganise(self, target: dict[str, list[Path|str|dict]]):
+        self.__file_reorganisation(target=target, root=self.__base_dir)
 
-        full_base_path = self.__base_dir.resolve()
+    def __file_reorganisation(self, target: dict[str, list[Path|str|dict]], root: Path) -> None:
+
+        full_base_path = root.resolve()
 
         for directory, contents in target.items():
             directory_name = directory.capitalize()
@@ -21,18 +24,19 @@ class FileStructureReorganiser:
                 directory_obj.mkdir(parents=False, exist_ok=False)
 
             for item in contents:
-                if isinstance(item, Path):
-                    self.move_file(item, directory_obj.resolve())
+                if isinstance(item, dict):
+                    self.__file_reorganisation(target=item, root=directory_obj)
 
-    def move_file(self, file: Path, destination_dir: Path):
+                elif isinstance(item, Path):
+                    self.__move_file(item, directory_obj.resolve())
+
+    def __move_file(self, file: Path, destination_dir: Path):
         destination = destination_dir / file.name
 
-        # SAFETY CHECK: Prevent overwriting existing files
+        # Prevent overwriting existing files
         if destination.exists():
             print(f"Conflict: '{destination.name}' already exists in target. Skipping.")
         try:
-            # The actual move operation
-            # Note: shutil.move is safer than os.rename for crossing different hard drives
             shutil.move(str(file), str(destination))
             print(f"Moved: {file.name}")
             

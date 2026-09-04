@@ -38,14 +38,48 @@ def test_environment_setup_exists(workspace):
     for file_path in expected_files:
         assert file_path.exists(), f"Missing expected file: {file_path.name}"
 
-def test_file_structure_reorganization(workspace):
+def create_expected_mapping(target: dict, expected_mapping: dict, current_path: Path|None = None):
+    for key, value in target.items():
+        if current_path:
+            folder_path = current_path / key.capitalize()
+        else:
+            folder_path = Path(key.capitalize())
+        
+        for item in value:
+            if isinstance(item, dict):
+                create_expected_mapping(item, expected_mapping, folder_path)
+            elif isinstance(item, Path):
+                expected_mapping[item.name] = folder_path
+                
+    return expected_mapping
+
+@pytest.fixture
+def target(request, workspace):
+    base_dir, sub_dir, deepest_dir, _ = workspace
+
+    if request == 'one_level_deep':    
+        return {
+            'documents': [base_dir / 'file1.txt', base_dir / 'file2.txt', base_dir / 'report.csv', sub_dir / 'nested_file.txt'], 
+            'images': [deepest_dir / 'double_nested_file.png'], 
+            'programs': [base_dir / 'file3.exe']
+        }
+    else:
+        return {
+            'documents': [base_dir / 'file1.txt', base_dir / 'file2.txt', sub_dir / 'nested_file.txt', {'subdirectory': [base_dir / 'report.csv']}], 
+            'images': [deepest_dir / 'double_nested_file.png'], 
+            'programs': [base_dir / 'file3.exe']
+        }
+
+@pytest.mark.parametrize(
+    'target',
+    ['one_level_deep', 'two_levels_deep'],
+    indirect=True
+)
+def test_file_structure_reorganisation(workspace, target):
     # Arrange
     base_dir, sub_dir, deepest_dir, expected_files = workspace
-    target: dict[str, list[Path | str | dict]] = {
-        'documents': [Path(base_dir /  'file1.txt'), Path(base_dir /  'file2.txt'), Path(base_dir / 'report.csv'), Path(sub_dir / 'nested_file.txt')], 
-        'images': [Path(deepest_dir / 'double_nested_file.png')], 
-        'programs': [Path(base_dir /  'file3.exe')]
-    }
+
+    expected_mapping = create_expected_mapping(target=target, expected_mapping={})
 
     # Act
     reorganizer = FileStructureReorganiser(base_dir)
@@ -53,14 +87,9 @@ def test_file_structure_reorganization(workspace):
 
     # Assert
     for file_path in expected_files:
-        if file_path.suffix in ['.txt', '.csv']:
-            expected_location = base_dir / "Documents" / file_path.name
-        elif file_path.suffix in ['.png']:
-            expected_location = base_dir / "Images" / file_path.name
-        elif file_path.suffix in ['.exe']:
-            expected_location = base_dir / "Programs" / file_path.name
-        else:
-            expected_location = base_dir / "Miscellaneous" / file_path.name
-
-        assert expected_location.exists(), f"File {file_path.name} not found in expected location: {expected_location}"
-    
+        expected_folder_name = expected_mapping.get(file_path.name, "Miscellaneous")
+        expected_location = base_dir / expected_folder_name / file_path.name
+        
+        assert expected_location.exists(), (
+            f"File {file_path.name} not found in expected location: {expected_location}"
+        )

@@ -14,7 +14,6 @@ class FileStructureIllustrator:
 
     def generate_illustration(self):
         self.__illustration = self.illustrate_directory(self.__structure, [])
-        print(self.__illustration)
 
     def illustrate_directory(self, directory: dict[str, list[Path|str|dict]], is_last_child_stack: list[bool]) -> list[str]:
         output = []

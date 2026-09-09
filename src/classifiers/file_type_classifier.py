@@ -22,11 +22,9 @@ class FileTypeClassifier(BaseClassifier):
 
     def classify(self) -> dict[str, list[Path|str|dict]]:
         map = self._build_extension_map(self.__config)
-
-        print(self._files)
+        
         organised_files = {'miscellaneous': []}
         for file in self._files:
-            print('here')
             directory_name = map.get(file.suffix)
 
             if not directory_name:

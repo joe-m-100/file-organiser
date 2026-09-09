@@ -13,28 +13,24 @@ class FileStructureScanner:
         }
 
     def get_files(self) -> list[Path]:
-        total_files = self.scan_directory(self.path)
+        total_files = self.__scan_directory(self.path)
         self.files.extend(total_files)
 
         return self.files
 
-    def scan_directory(self, path: Path) -> list[Path]:
+    def set_path(self, filepath: Path) -> None:
+        if filepath.exists():
+            self.path = filepath
+        else:
+            raise ValueError('Filepath does not exist.')
+
+    def __scan_directory(self, path: Path) -> list[Path]:
         files = []
         for item in path.iterdir():
             if item.is_file():
                 files.append(item)
 
             elif item.is_dir() and not self.ignore.get(item.name):
-                files.extend(self.scan_directory(path / item.name))
+                files.extend(self.__scan_directory(path / item.name))
 
         return files
-
-    def group_files_by_extension(self) -> dict[str, list[Path|str|dict]]:
-        grouped_files = {}
-        for file in self.files:
-            extension = file.suffix
-            if extension not in grouped_files:
-                grouped_files[extension] = []
-            grouped_files[extension].append(file)
-
-        return grouped_files

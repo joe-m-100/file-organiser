@@ -66,7 +66,7 @@ def target(request, workspace):
     else:
         return {
             'documents': [base_dir / 'file1.txt', base_dir / 'file2.txt', sub_dir / 'nested_file.txt', {'subdirectory': [base_dir / 'report.csv']}], 
-            'images': [deepest_dir / 'double_nested_file.png'], 
+            'images': [{'subdirectory': [deepest_dir / 'double_nested_file.png']}], 
             'programs': [base_dir / 'file3.exe']
         }
 

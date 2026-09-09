@@ -54,5 +54,6 @@ Particular areas of interest include:
 * Classification and rule-based systems
 * Potential for ML algorithm integration to better sort files
 * Software testing (TDD)
+* Object-Orientated Principles
 * Error handling and recovery
 * Performance considerations when processing large numbers of files

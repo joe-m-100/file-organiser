@@ -1,5 +1,5 @@
 import pytest
-from src.file_structure_illustrator import FileStructureIllustrator
+from src.utilities.file_structure_illustrator import FileStructureIllustrator
 
 
 @pytest.mark.parametrize('input, expected', [

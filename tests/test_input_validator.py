@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from src.input_validator import InputValidator
+from src.utilities.input_validator import InputValidator
 
 # Workspace/Environment Setup
 @pytest.fixture(scope="class")

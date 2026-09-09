@@ -1,5 +1,5 @@
 import pytest
-from src.file_structure_scanner import FileStructureScanner
+from src.utilities.file_structure_scanner import FileStructureScanner
 
 # Workspace/Environment Setup
 @pytest.fixture(scope="class")

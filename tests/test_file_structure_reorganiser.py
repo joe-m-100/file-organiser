@@ -1,5 +1,5 @@
 import pytest
-from src.file_structure_reorganiser import FileStructureReorganiser
+from src.utilities.file_structure_reorganiser import FileStructureReorganiser
 from pathlib import Path
 
 # Workspace/Environment Setup

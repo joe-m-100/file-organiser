@@ -49,3 +49,21 @@ def test_files_retrieved(workspace):
         assert target_files.get(file.name), f"Missing file: {file.name}"
         target_files[file.name] = False
 
+def test_file_structure_retrieved(workspace):
+    # Arrange
+    base_dir, sub_dir, expected_files = workspace
+    scanner = FileStructureScanner(base_dir)
+
+    expected_structure = {
+        base_dir.name: [file for file in expected_files if file.parent == base_dir]
+    }
+
+    expected_structure[base_dir.name].append(
+        { sub_dir.name: [file for file in expected_files if file.parent == sub_dir] }
+    )
+
+    # Act
+    output = scanner.get_structure()
+
+    # Assert
+    assert output == expected_structure

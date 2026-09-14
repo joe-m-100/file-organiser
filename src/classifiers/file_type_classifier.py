@@ -10,7 +10,8 @@ class FileTypeClassifier(BaseClassifier):
             'images': ['.jpg', '.jpeg', '.png', '.svg', '.webp', '.gif'],
             'music': ['.mp3', '.wav', '.aac'],
             'videos': ['.mp4', '.mov'],
-            'programs': ['.exe']
+            'programs': ['.exe'],
+            'scripts': ['.py', '.sh', '.js', '.php', '.c', '.java', '.cpp']
         }
 
     def _build_extension_map(self, config: dict[str, list[str]]) -> dict[str, str]:

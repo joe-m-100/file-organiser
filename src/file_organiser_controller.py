@@ -35,19 +35,19 @@ class FileOrganiserController:
                 continue
 
             self.scanner.set_path(filepath)
-            proceed = bool(filepath)
+            file_structure = self.scanner.get_structure()
+
+            self.illustrator.illustrate(file_structure)
+
+            confirmation = input('\nIs this the correct target directory? [y/n] ')
+
+            proceed = bool(filepath) and confirmation.lower() == 'y'
+
 
         files = self.scanner.get_files()
 
         self.classifier.set_files(files)
         organised_files = self.classifier.classify()
 
-        self.illustrator.set_structure(organised_files)
-        self.illustrator.generate_illustration()
-        self.illustrator.display()
-        
-
-        
-
-
+        self.illustrator.illustrate(organised_files)
         

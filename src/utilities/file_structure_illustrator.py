@@ -12,6 +12,11 @@ class FileStructureIllustrator:
     def set_structure(self, structure: dict[str, list[Path|str|dict]]) -> None:
         self.__structure = structure
 
+    def illustrate(self, structure: dict[str, list[Path|str|dict]]):
+        self.set_structure(structure)
+        self.generate_illustration()
+        self.display()
+
     def generate_illustration(self):
         self.__illustration = self.illustrate_directory(self.__structure, [])
 

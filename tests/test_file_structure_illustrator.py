@@ -91,7 +91,7 @@ def test_format_illustration_line(input, expected):
         ]
     ),
 ])
-def test_file_structure_illustration(input, expected):
+def test_file_structure_illustration_generation(input, expected):
     # Arrange
     illustrator = FileStructureIllustrator(input)
 
@@ -101,3 +101,19 @@ def test_file_structure_illustration(input, expected):
 
     # Assert
     assert actual == expected, f"Illustration strings do not match."
+
+def test_file_structor_illustrate(mocker):
+    #Arrange
+    illustrator = FileStructureIllustrator({})
+
+    spy_set = mocker.spy(illustrator, 'set_structure')
+    spy_generation = mocker.spy(illustrator, 'generate_illustration')
+    spy_display = mocker.spy(illustrator, 'display')
+
+    #Act
+    illustrator.illustrate({})
+
+    #Assert
+    spy_set.assert_called_once()
+    spy_generation.assert_called_once()
+    spy_display.assert_called_once()
